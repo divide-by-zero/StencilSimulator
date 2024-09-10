@@ -77,7 +77,7 @@ public class Main : MonoBehaviour
             using var _ = currentPixel.SetMarker(color);
             var currentId = currentPixel.GetID();
             var newId = stencilStatus.IdRp.Value;
-            var max = 7;
+            var max = 8;
 
             if (delay != default && delay != TimeSpan.Zero)
             {
@@ -111,7 +111,7 @@ public class Main : MonoBehaviour
                     currentPixel.SetId(newId, color);
                     break;
                 case StencilOp.IncrementSaturate:
-                    currentPixel.SetId(Mathf.Min(currentId + 1, max), color);
+                    currentPixel.SetId(Mathf.Min(currentId + 1, max-1), color);
                     break;
                 case StencilOp.IncrementWrap:
                     currentPixel.SetId((currentId + 1) % max, color);
@@ -123,7 +123,7 @@ public class Main : MonoBehaviour
                     currentPixel.SetId((currentId - 1 + max) % max, color);
                     break;
                 case StencilOp.Invert:
-                    currentPixel.SetId(max - currentId, color);
+                    currentPixel.SetId(max - 1 - currentId, color);
                     break;
             }
         }
