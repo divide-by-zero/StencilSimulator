@@ -233,13 +233,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "jp.co.kidsstar.toolbar-extender": {
-      "version": "git+ssh://git@github.com/kidsstar/ToolbarExtender.git?path=/Assets/Extensions",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "670094585b380038c6fee07e35b484c3f17b1890"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
