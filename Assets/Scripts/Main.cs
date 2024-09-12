@@ -41,7 +41,7 @@ public class Main : MonoBehaviour
             {
                 _forceCompleteCts?.Cancel();
                 _forceCompleteCts = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
-                await DrawPixelAsync(status, TimeSpan.FromSeconds(_delay), _forceCompleteCts.Token);
+                await DrawPixelAsync(status, _forceCompleteCts.Token);
                 _undoSlider.AddRecord(_pixels.GetPixelDatas());
             })
             .AddTo(this);
@@ -65,7 +65,7 @@ public class Main : MonoBehaviour
         }
     }
 
-    public async UniTask DrawPixelAsync(StencilStatus stencilStatus, TimeSpan delay = default, CancellationToken ct = default)
+    public async UniTask DrawPixelAsync(StencilStatus stencilStatus,CancellationToken ct = default)
     {
         var rect = stencilStatus.Rect;
         for (var y = (int)rect.y; y < (int)rect.yMax; y++)
@@ -79,9 +79,9 @@ public class Main : MonoBehaviour
             var newId = stencilStatus.IdRp.Value;
             var max = 8;
 
-            if (delay != default && delay != TimeSpan.Zero)
+            if (_delay > 0)
             {
-                await UniTask.Delay(delay, cancellationToken: ct).SuppressCancellationThrow();
+                await UniTask.Delay(TimeSpan.FromSeconds(_delay), cancellationToken: ct).SuppressCancellationThrow();
             }
 
             var isSuccess = (CompareFunction)stencilStatus.CompareRp.Value switch
